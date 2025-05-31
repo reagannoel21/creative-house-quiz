@@ -1,0 +1,139 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww18480\viewh17680\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!DOCTYPE html>\
+<html lang="en">\
+<head>\
+  <meta charset="UTF-8">\
+  <title>Creative House Sorting Quiz</title>\
+  <style>\
+    body \{ font-family: 'Segoe UI', sans-serif; padding: 20px; background: #fdf6f0; \}\
+    h1 \{ text-align: center; \}\
+    .quiz-container \{ max-width: 700px; margin: auto; \}\
+    .question \{ margin-bottom: 20px; \}\
+    .result \{ margin-top: 30px; font-size: 1.4em; font-weight: bold; text-align: center; \}\
+    button \{ padding: 10px 20px; background: #4CAF50; color: white; border: none; cursor: pointer; \}\
+    button:hover \{ background: #45a049; \}\
+  </style>\
+</head>\
+<body>\
+\
+  <h1>Which Creative House Are You?</h1>\
+  <div class="quiz-container" id="quiz"></div>\
+  <div class="result" id="result"></div>\
+\
+  <script>\
+    const quizData = [\
+      \{\
+        question: "1. How do you respond to challenges?",\
+        answers: \{\
+          A: "Jump in headfirst and figure it out midair (Circus)",\
+          B: "Reflect and create a new approach (Art)",\
+          C: "Adapt and express it fully (Theater)",\
+          D: "Train harder and push through (Sports)",\
+          E: "Let emotions guide me (Music)",\
+          F: "Trust my body to lead me (Dance)"\
+        \}\
+      \},\
+      \{\
+        question: "2. What\'92s your ideal way to express yourself?",\
+        answers: \{\
+          A: "Daring movement and impressive feats",\
+          B: "Visuals, textures, or original designs",\
+          C: "Characters and emotional storytelling",\
+          D: "Action and competition",\
+          E: "Sound and melody",\
+          F: "Dance and embodied feeling"\
+        \}\
+      \},\
+      \{\
+        question: "3. Which environment inspires you most?",\
+        answers: \{\
+          A: "A vibrant circus tent",\
+          B: "An art studio full of tools",\
+          C: "A dramatic theater",\
+          D: "A stadium or field",\
+          E: "A concert hall or studio",\
+          F: "A dance studio"\
+        \}\
+      \},\
+      \{\
+        question: "4. What drives you creatively?",\
+        answers: \{\
+          A: "Thrill of taking risks",\
+          B: "Capturing unseen beauty",\
+          C: "Becoming someone else",\
+          D: "Pushing limits and achieving goals",\
+          E: "Transforming emotion into sound",\
+          F: "Telling stories through movement"\
+        \}\
+      \},\
+      \{\
+        question: "5. How do people describe you?",\
+        answers: \{\
+          A: "Bold, quirky, energetic",\
+          B: "Imaginative, introspective, original",\
+          C: "Expressive, passionate, charismatic",\
+          D: "Driven, competitive, focused",\
+          E: "Soulful, musical, deep",\
+          F: "Passionate, graceful, grounded"\
+        \}\
+      \}\
+    ];\
+\
+    const houseScores = \{ A: 0, B: 0, C: 0, D: 0, E: 0, F: 0 \};\
+    const houseNames = \{\
+      A: "\uc0\u55356 \u57258  House Circus \'96 The Daring Dreamers",\
+      B: "\uc0\u55356 \u57256  House Art \'96 The Visionary Creators",\
+      C: "\uc0\u55356 \u57261  House Theater \'96 The Bold Storytellers",\
+      D: "\uc0\u9917  House Sports \'96 The Fierce Competitors",\
+      E: "\uc0\u55356 \u57269  House Music \'96 The Soul Resonators",\
+      F: "\uc0\u55357 \u56451  House Dance \'96 The Spirit Movers"\
+    \};\
+\
+    const quizContainer = document.getElementById("quiz");\
+    const resultContainer = document.getElementById("result");\
+\
+    let currentQuestion = 0;\
+\
+    function showQuestion() \{\
+      const q = quizData[currentQuestion];\
+      let html = `<div class="question"><h3>$\{q.question\}</h3>`;\
+      for (let key in q.answers) \{\
+        html += `<label><input type="radio" name="q$\{currentQuestion\}" value="$\{key\}"> $\{q.answers[key]\}</label><br>`;\
+      \}\
+      html += `<br><button onclick="submitAnswer()">Next</button></div>`;\
+      quizContainer.innerHTML = html;\
+    \}\
+\
+    function submitAnswer() \{\
+      const selected = document.querySelector(`input[name="q$\{currentQuestion\}"]:checked`);\
+      if (!selected) \{\
+        alert("Please choose an answer.");\
+        return;\
+      \}\
+      houseScores[selected.value]++;\
+      currentQuestion++;\
+      if (currentQuestion < quizData.length) \{\
+        showQuestion();\
+      \} else \{\
+        showResult();\
+      \}\
+    \}\
+\
+    function showResult() \{\
+      let topHouse = Object.keys(houseScores).reduce((a, b) => houseScores[a] > houseScores[b] ? a : b);\
+      quizContainer.innerHTML = "";\
+      resultContainer.innerHTML = `You belong in <strong>$\{houseNames[topHouse]\}</strong>!`;\
+    \}\
+\
+    showQuestion();\
+  </script>\
+\
+</body>\
+</html>\
+}
